@@ -1,0 +1,133 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 50px;
+  background-color: #3c8fba;
+  font-family: sans-serif;
+}
+
+.box {
+  border: 10px solid;
+  border-color: transparent blue blue transparent;
+  transform: rotate(90deg);
+}
+
+.avater {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-image: url("./profile.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: 1px solid #ffec87;
+}
+
+.avater::before,
+.avater::after {
+  --scale: 0;
+  --tooltip-color: #333;
+  --arrow-size: 10px;
+  position: absolute;
+  content: "";
+  top: -0.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0))
+    scale(var(--scale));
+  transition: 0.3s ease;
+  transform-origin: bottom center;
+}
+
+.avater::before {
+  --translate-y: calc(-100% - var(--arrow-size));
+  content: attr(data-tooltip);
+  background-color: var(--tooltip-color);
+  text-align: center;
+  border-radius: 0.3rem;
+  color: white;
+  width: max-content;
+  /* max-width: 100%; */
+  padding: 0.5rem;
+}
+
+.avater:hover::before,
+.avater:hover::after {
+  --scale: 1;
+}
+
+.avater::after {
+  --translate-y: calc(-1 * var(--arrow-size));
+
+  content: "";
+  border: var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
+
+/* tooltip for icon */
+.box-container {
+  display: flex;
+  gap: 18px;
+}
+.gallary,
+.gif,
+.video {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: 2px solid #ffec87;
+  border-radius: 0.5rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.material-symbols-outlined {
+  color: #ffec87;
+  font-weight: bold;
+  font-size: 36px !important;
+}
+
+.gallary .tooltip,
+.gif .tooltip,
+.video .tooltip {
+  scale: 0;
+  position: absolute;
+  content: "";
+  color: #3c8fba;
+  background-color: #ffec87;
+  padding: 0.5rem;
+  width: max-content;
+  border-radius: 0.15rem;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%) translatey(-100%);
+  transition: 0.3s ease;
+  transform-origin: left center;
+}
+.gallary:hover .tooltip,
+.gif:hover .tooltip,
+.video:hover .tooltip {
+  scale: 1;
+}
+.gallary .tooltip span::after,
+.gif .tooltip span::after,
+.video .tooltip span::after {
+  position: absolute;
+  content: "";
+  border: 10px solid transparent;
+  border-top-color: #ffec87;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0%);
+}
